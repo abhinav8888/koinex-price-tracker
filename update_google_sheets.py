@@ -13,7 +13,7 @@ except ImportError:
     flags = None
 
 
-class UpdateSheet(object):
+class GoogleSheetHelper(object):
 
     def __init__(self):
         self.credentials = self.get_credentials()
@@ -69,3 +69,17 @@ class UpdateSheet(object):
                 spreadsheetId=spreadsheet_id, range=range_name,
                 valueInputOption=value_input_option, body=value_range_body)
             request.execute()
+
+    def get_price_alerts(self):
+        spreadsheet_id = settings.PRICE_ALERT_SPREADSHEET
+        credentials = getattr(self, 'credentials', self.get_credentials())
+        http = credentials.authorize(httplib2.Http())
+        discovery_url = ('https://sheets.googleapis.com/$discovery/rest?version=v4')
+        service = discovery.build('sheets', 'v4', http=http,
+                                  discoveryServiceUrl=discovery_url)
+        range_name = 'Overall!A16:C20'
+        result = service.spreadsheets().values().get(
+            spreadsheetId=spreadsheet_id, range=range_name).execute()
+        values = result.get('values', [])
+        return values
+

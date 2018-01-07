@@ -84,3 +84,7 @@ class Helper(object):
         msg = 'Price of %s on koinex is %s' % (coin_name, price)
         payload = json.dumps({'text': msg})
         requests.post(settings.SLACK_URL, data=payload)
+
+    def update_price_alerts(self, price_alerts):
+        for alert in price_alerts:
+            self.set_max_min_price_for_coin(alert[0], float(int(alert[1])), float(int(alert[2])))
