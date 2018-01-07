@@ -10,7 +10,7 @@ if ROOT_FOLDER not in sys.path:
     sys.path.insert(1, ROOT_FOLDER + '/')
 
 from web_crawler import Crawler
-from update_google_sheets import GoogleSheetHelper
+from google_sheets_helper import GoogleSheetsHelper
 from helper import Helper
 
 log_file = 'koinex.log'
@@ -22,7 +22,7 @@ def main():
     try:
         helper = Helper()
         price_data = helper.get_koinex_price()
-        sheet = GoogleSheetHelper()
+        sheet = GoogleSheetsHelper()
         price_alert_values = sheet.get_price_alerts()
         helper.update_price_alerts(price_alert_values)
         sheet.update_koinex_google_sheet(price_data)

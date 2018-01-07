@@ -13,7 +13,7 @@ except ImportError:
     flags = None
 
 
-class GoogleSheetHelper(object):
+class GoogleSheetsHelper(object):
 
     def __init__(self):
         self.credentials = self.get_credentials()
