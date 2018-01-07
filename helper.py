@@ -87,4 +87,4 @@ class Helper(object):
 
     def update_price_alerts(self, price_alerts):
         for alert in price_alerts:
-            self.set_max_min_price_for_coin(alert[0], float(int(alert[1])), float(int(alert[2])))
+            self.set_max_min_price_for_coin(alert[0], float(alert[1]), float(alert[2]))
