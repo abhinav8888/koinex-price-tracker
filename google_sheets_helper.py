@@ -19,6 +19,10 @@ class GoogleSheetsHelper(object):
         self.credentials = self.get_credentials()
 
     def get_credentials(self):
+        """
+        Gets credentials to be used for making calls to google sheets api
+        :return: credentials
+        """
         if getattr(self, 'credentials', None):
             return self.credentials
 
@@ -71,6 +75,13 @@ class GoogleSheetsHelper(object):
             request.execute()
 
     def get_price_alerts(self):
+        """
+        Gets prices for coins to be used for alerts. The data should be in columnar format
+        with the first column containing the abbrv of the coin in all caps i.e. BTC
+        The second and third column should contain the max price and min price of the coin 
+        respectively. The price should be in decimal format, i.e. 13000000.00
+        :return: 
+        """
         spreadsheet_id = settings.PRICE_ALERT_SPREADSHEET
         credentials = getattr(self, 'credentials', self.get_credentials())
         http = credentials.authorize(httplib2.Http())
