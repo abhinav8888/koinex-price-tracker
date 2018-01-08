@@ -19,7 +19,7 @@ logging.basicConfig(filename=log_file,level=logging.ERROR)
 
 def main():
     crawl = None
-    try:
+    if True: #try:
         helper = Helper()
         price_data = helper.get_koinex_price()
         sheet = GoogleSheetsHelper()
@@ -39,14 +39,14 @@ def main():
                 helper.send_slack_alert(coin_data['coin'], coin_data['price'])
             # crawl = Crawler()
             # crawl.play_youtube_video()
-    except Exception, e:
-        logging.error(e)
-        print(e)
-    try:
-        if crawl:
-            crawl.driver.close()
-    except:
-        pass
+    #except Exception as e:
+    #   logging.error("Error")
+    #   print(e)
+    #try:
+    #   if crawl:
+    #       crawl.driver.close()
+    #except:
+    #   pass
 
 if __name__ == '__main__':
     main()
