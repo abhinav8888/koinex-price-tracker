@@ -16,7 +16,7 @@ class Helper(object):
         """
         if getattr(self, 'redis_conn', None):
             return self.redis_conn
-        redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0)
+        redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
         self.redis_conn = redis_conn
         return redis_conn
 
