@@ -16,7 +16,7 @@ class Helper(object):
         """
         if getattr(self, 'redis_conn', None):
             return self.redis_conn
-        redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0)
+        redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
         self.redis_conn = redis_conn
         return redis_conn
 
@@ -55,7 +55,7 @@ class Helper(object):
         key = '_koinex_data_%s'
         redis_conn.hmset(key % now.date(), {now: price_data})
         redis_conn.delete(key % (now - timedelta(days=7)).date())
-        for coin, price in price_data.iteritems():
+        for coin, price in price_data.items():
             coin_price_dict = redis_conn.hgetall(coin)
             if float(coin_price_dict.get('max', 0)) < price:
                 self.set_max_min_price_for_coin(coin, max_price=price)
@@ -68,13 +68,13 @@ class Helper(object):
     @staticmethod
     def clean_data(price_data):
         valid_coin_abbreviations = settings.VALID_COINS
-        data = {coin:float(price) for coin, price in price_data.iteritems() if coin in valid_coin_abbreviations}
+        data = {coin:float(price) for coin, price in price_data.items() if coin in valid_coin_abbreviations}
         return data
 
     def get_coin_price_history(self, coin):
         data = self.get_price_history()
         for timestamp in sorted(data.keys()):
-            print timestamp, literal_eval(data[timestamp])[coin]
+            print(timestamp, literal_eval(data[timestamp])[coin])
 
     def koinex_alert(self, ltc_price):
         return ltc_price < 21000 or ltc_price > 24000

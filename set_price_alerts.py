@@ -1,4 +1,3 @@
-import os, sys
 import argparse
 import settings
 from helper import Helper
@@ -20,12 +19,12 @@ def main():
     try:
         max_price = int(args.max_price)
     except (TypeError, ValueError):
-        print "Enter max price in correct format"
+        print("Enter max price in correct format")
         max_price = None
     try:
         min_price = int(args.min_price)
     except (TypeError, ValueError):
-        print "Enter min price in correct format"
+        print("Enter min price in correct format")
         min_price = None
     if coin_abbrv and (max_price or min_price):
         helper.set_max_min_price_for_coin(coin_symbol=args.coin, max_price=max_price, min_price=min_price)
