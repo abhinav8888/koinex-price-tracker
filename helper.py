@@ -98,6 +98,7 @@ class Helper(object):
         for alert in price_alerts:
             self.set_max_min_price_for_coin(alert[0], float(alert[1]), float(alert[2]))
 
+<<<<<<< HEAD
     def check_zebpay_koinex_arbitrage(self):
         koinex_prices = getattr(self, 'koinex_prices', None)
         if not koinex_prices:
