@@ -61,12 +61,13 @@ class GoogleSheetsHelper(object):
         service = discovery.build('sheets', 'v4', http=http,
                                   discoveryServiceUrl=discovery_url)
         spreadsheet_ids = settings.SPREADSHEET_IDS
-        range_name = 'Overall!B2:B6'
+        range_name = 'Overall!B2:B14'
         value_input_option = 'RAW'
         value_range_body = {
-            "range": "Overall!B2:B6",
+            "range": "Overall!B2:B14",
             "majorDimension": "COLUMNS",
-            "values": [[price_data['BTC'], price_data['XRP'], price_data['LTC'], price_data['ETH'], price_data['BCH']]]
+            "values": [[price_data['BTC'], price_data['XRP'], price_data['LTC'], price_data['ETH'], price_data['BCH'],
+                price_data['GNT'], price_data['OMG'], price_data['REQ'], price_data['ZRX'], price_data['BAT'], price_data['TRX'], price_data['AE']]]
         }
         for spreadsheet_id in spreadsheet_ids:
             request = service.spreadsheets().values().update(
@@ -88,7 +89,7 @@ class GoogleSheetsHelper(object):
         discovery_url = ('https://sheets.googleapis.com/$discovery/rest?version=v4')
         service = discovery.build('sheets', 'v4', http=http,
                                   discoveryServiceUrl=discovery_url)
-        range_name = 'Overall!A16:C20'
+        range_name = 'Overall!A24:C34'
         result = service.spreadsheets().values().get(
             spreadsheetId=spreadsheet_id, range=range_name).execute()
         values = result.get('values', [])
